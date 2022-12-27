@@ -1,4 +1,6 @@
 name: Test
+
+
 on:
   push:
      branches:
@@ -7,9 +9,8 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     steps:
-      - name: get code
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: install deps
-      run: npm install
+        run: npm install
       - name: run tests
-      run: npm run test
+        run: npm run test
