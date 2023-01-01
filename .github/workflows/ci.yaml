@@ -7,7 +7,7 @@ on:
       - dev
 jobs:
   testing:
-    runs-on: ubuntu-20.04.5
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: install deps
@@ -16,7 +16,7 @@ jobs:
         run: npm run test
   deploy:
     needs: testing
-    runs-on: ubuntu-20.04.5
+    runs-on: ubuntu-latest
     steps:
       - run: set -eu
       - run: mkdir "$HOME/.ssh"
