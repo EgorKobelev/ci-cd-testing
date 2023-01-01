@@ -24,7 +24,8 @@ jobs:
         with:
           switches: -avzr --delete
           remote_path: /home/apps/ci-cd-testing/
-          remote_host: root@95.163.236.94
+          remote_host: 95.163.236.94
+          remote_user: root
           remote_key: ${{ secrets.KEY }}
     # steps:
     #   - run: set -eu
