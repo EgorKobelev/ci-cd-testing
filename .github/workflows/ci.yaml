@@ -17,9 +17,18 @@ jobs:
   deploy:
     needs: testing
     runs-on: ubuntu-latest
-    steps:
-      - run: set -eu
-      - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
-      - run: chmod 600 "$HOME/.ssh/key"
-      - run: rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" -avz . root@95.163.236.94:/home/apps/ci-cd-testing/
+     steps:
+    - uses: actions/checkout@v2
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.2.1
+      with:
+        switches: -avzr --delete
+        remote_path: /home/apps/ci-cd-testing/
+        remote_host: root@95.163.236.94
+        remote_key: ${{ secrets.KEY }}
+    # steps:
+    #   - run: set -eu
+    #   - run: mkdir "$HOME/.ssh"
+    #   - run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
+    #   - run: chmod 600 "$HOME/.ssh/key"
+    #   - run: rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@95.163.236.94:/home/apps/ci-cd-testing/
