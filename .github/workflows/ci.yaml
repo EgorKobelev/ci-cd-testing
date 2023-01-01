@@ -7,10 +7,16 @@ on:
       - main
 jobs:
   testing:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04.5
     steps:
       - uses: actions/checkout@v3
       - name: install deps
         run: npm install
       - name: run tests
         run: npm run test
+      - name: deploy
+        run: set -eu
+        run: mkdir "$HOME/.ssh"
+        run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
+        run: chmod 600 "$HOME/.ssh/key"
+        run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . http://95.163.236.94/:/home/apps/ci-cd-testing/
