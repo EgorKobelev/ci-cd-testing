@@ -4,7 +4,7 @@ name: Test
 on:
   push:
      branches:
-      - main
+      - dev
 jobs:
   testing:
     runs-on: ubuntu-20.04.5
@@ -14,7 +14,10 @@ jobs:
         run: npm install
       - name: run tests
         run: npm run test
-      - name: deploy
+  deploy:
+    needs: testing
+    runs-on: ubuntu-20.04.5
+    steps:
       - run: set -eu
       - run: mkdir "$HOME/.ssh"
       - run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
