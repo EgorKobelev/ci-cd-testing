@@ -33,3 +33,10 @@ jobs:
     #   - run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
     #   - run: chmod 600 "$HOME/.ssh/key"
     #   - run: rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@95.163.236.94:/home/apps/ci-cd-testing/
+
+#   build:
+#     runs-on: self-hosted #запустить ранера action на хосте
+#     steps:
+#     - uses: actions/checkout@v2
+#     - run: yarn install
+#     - run: npm run build
